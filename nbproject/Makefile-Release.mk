@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/InetServer.o \
 	${OBJECTDIR}/TimerRunner.o \
 	${OBJECTDIR}/displayView.o \
 	${OBJECTDIR}/main.o
@@ -63,6 +64,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/archery-led-display: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/archery-led-display ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/InetServer.o: InetServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/InetServer.o InetServer.cpp
 
 ${OBJECTDIR}/TimerRunner.o: TimerRunner.cpp 
 	${MKDIR} -p ${OBJECTDIR}

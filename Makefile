@@ -12,7 +12,7 @@ CXX = g++
 BASICOPTS =  -std=c++11 -Wall -O3 -g
 CCFLAGS = $(BASICOPTS)
 CXXFLAGS = $(BASICOPTS)
-OBJECTS=main.o displayView.o TimerRunner.o
+SERV_OBJECTS=main.o displayView.o TimerRunner.o InetServer.o
 INC=include $(RGB_INCDIR)
 BINARIES=led-server
 
@@ -29,14 +29,14 @@ all : $(BINARIES)
 $(RGB_LIBRARY): FORCE
 	$(MAKE) -C $(RGB_LIBDIR)
 
-led-server : $(OBJECTS) $(RGB_LIBRARY)
-	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $@ $(LDFLAGS)
+led-server : $(SERV_OBJECTS) $(RGB_LIBRARY)
+	$(CXX) $(CXXFLAGS) $(SERV_OBJECTS) -o $@ $(LDFLAGS)
 
 %.o : %.cpp
 	$(CXX) $(INCLUDE) $(CXXFLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(OBJECTS) $(BINARIES)
+	rm -f $(SERV_OBJECTS) $(BINARIES)
 	$(MAKE) -C matrix/lib clean
 
 FORCE:

@@ -4,7 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>include/InetServer.h</itemPath>
       <itemPath>include/TimerRunner.h</itemPath>
+      <itemPath>include/aipprotocol.h</itemPath>
       <itemPath>include/displayView.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -14,6 +16,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>InetServer.cpp</itemPath>
       <itemPath>TimerRunner.cpp</itemPath>
       <itemPath>displayView.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
@@ -41,16 +44,24 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>matrix/include</pElem>
+            <pElem>include</pElem>
           </incDir>
         </ccTool>
       </compileType>
+      <item path="InetServer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="TimerRunner.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="displayView.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="include/InetServer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/TimerRunner.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/aipprotocol.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/displayView.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -77,11 +88,17 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="InetServer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="TimerRunner.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="displayView.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="include/InetServer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/TimerRunner.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/aipprotocol.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/displayView.h" ex="false" tool="3" flavor2="0">
       </item>

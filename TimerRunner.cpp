@@ -26,9 +26,55 @@ TimerRunner::TimerRunner(const TimerRunner& orig) {
 TimerRunner::~TimerRunner() {
 }
 
-void TimerRunner::Abort() {
+void TimerRunner::next() {
     countDown = false;
 }
+
+void TimerRunner::shootIn(Canvas* canvas, int maxEnds, bool indoor) {
+    Font fontMisc, fontTimer;
+    fontMisc.LoadFont("matrix/fonts/5x8.bdf");
+    fontTimer.LoadFont("matrix/fonts/10x20.bdf");
+    
+    displayView display;
+    
+    display.reset();
+    display.setMaxEnds(maxEnds);
+    display.toggleGroup(canvas, fontMisc);
+    
+    for(int end = 0; end < maxEnds; end++) {
+        display.colorSign(canvas, Color(255,0,0));
+        display.nextEnd(canvas, fontMisc);
+        
+        for(int group = 0; group < 2; group++) {
+            countDown = true;
+            
+            if(group == 1)
+                display.toggleGroup(canvas, fontMisc);
+            
+            for(int i = 10; i > 0; i--) {
+                display.colorSign(canvas, Color(255,0,0));
+                display.remainingTime(canvas, fontTimer, i);
+                
+                std::this_thread::sleep_for(std::chrono::seconds(1));
+            }
+            
+            for(int i = (indoor) ? 120 : 240; i > 0 && countDown; i--) {
+                Color c = (i > 30) ? Color(0,255,0) : Color(255,255,0);
+                
+                display.colorSign(canvas, c);
+                display.remainingTime(canvas, fontTimer, i);
+                
+                std::this_thread::sleep_for(std::chrono::seconds(1));
+            }
+        }
+        
+        display.remainingTime(canvas, fontTimer, 0);
+        countDown = true;
+        
+        idle(canvas, display);
+    }
+}
+
 
 void TimerRunner::WAIndoor(Canvas* canvas) {
     Font fontMisc, fontTimer;
@@ -37,38 +83,55 @@ void TimerRunner::WAIndoor(Canvas* canvas) {
     
     displayView display;
     
-    display.ToggleGroup(canvas, fontMisc);
-    display.UpdateEnd(canvas, fontMisc, 0);
+    display.reset();
+    display.setMaxEnds(10);
+    display.toggleGroup(canvas, fontMisc);
+//    display.UpdateEnd(canvas, fontMisc, 0);
     for(int end = 0; end < 10; end++) {
-        display.ColorSign(canvas, Color(255,0,0));
+        display.colorSign(canvas, Color(255,0,0));
         display.nextEnd(canvas, fontMisc);
         
         for(int group = 0; group < 2; group++) {
             countDown = true;
             
             if (group == 1)
-                display.ToggleGroup(canvas, fontMisc);
+                display.toggleGroup(canvas, fontMisc);
             
             for(int i = 10; i > 0; i--) {
-                display.ColorSign(canvas, Color(255,0,0));
-                display.RemainingTime(canvas, fontTimer, i);
+                display.colorSign(canvas, Color(255,0,0));
+                display.remainingTime(canvas, fontTimer, i);
                 
                 std::this_thread::sleep_for(std::chrono::seconds(1));
             }
             
             for(int i = 120; i > 0 && countDown; i--) {
                 Color c = (i > 30) ? Color(0,255,0) : Color(255,255,0);
-                display.ColorSign(canvas, c);
-                display.RemainingTime(canvas, fontTimer, i);
+                display.colorSign(canvas, c);
+                display.remainingTime(canvas, fontTimer, i);
                 
                 std::this_thread::sleep_for(std::chrono::seconds(1));
             }
         }
-        display.ColorSign(canvas, Color(255,0,0));
-        display.RemainingTime(canvas, fontTimer, 0);
         
-        std::cout << "Press any key to continue. . .\n";
-        getchar();
+        display.remainingTime(canvas, fontTimer, 0);
+        countDown = true;
+        
+        idle(canvas, display);
     }
-    
 }
+
+void TimerRunner::idle(Canvas* canvas, displayView display) {
+    bool red = true;
+    while (countDown) {
+        if(red) {
+            display.colorSign(canvas, Color(255,0,0));
+            red = false;
+        } else {
+            display.colorSign(canvas, Color(0,0,0));
+            red = true;
+        }
+        
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+}
+

@@ -14,6 +14,7 @@
 #ifndef TIMERRUNNER_H
 #define TIMERRUNNER_H
 
+#include "displayView.h"
 #include "led-matrix.h"
 #include "graphics.h"
 
@@ -28,7 +29,9 @@ public:
     TimerRunner(const TimerRunner& orig);
     virtual ~TimerRunner();
     
-    void Abort();
+    void next();
+    void idle(Canvas*,displayView);
+    void shootIn(Canvas*,int, bool);
     void WAIndoor(Canvas*);
 private:
     bool countDown = false;

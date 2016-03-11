@@ -14,6 +14,7 @@
 #include "graphics.h"
 #include "displayView.h"
 #include "TimerRunner.h"
+#include "InetServer.h"
 
 using namespace std;
 using rgb_matrix::GPIO;
@@ -21,19 +22,12 @@ using rgb_matrix::RGBMatrix;
 using rgb_matrix::Canvas;
 using rgb_matrix::Font;
 
-const int MODE_INDOOR_WA = 0;
-const int MODE_OUTDOOR_WA = 1;
-const int MODE_LIGA = 2;
+void callListenThread(InetServer* server) {
+    server->handleEverything();
+}
 
-void callDisplayThread(Canvas* canvas, TimerRunner* timer, const int mode) {
-    switch(mode) {
-        case MODE_INDOOR_WA:
-            timer->WAIndoor(canvas);
-            break;
-        
-        default:
-            break;
-    }
+void callAccept(InetServer* server) {
+    server->acceptThread();
 }
 /*
  * 
@@ -50,14 +44,16 @@ int main(int argc, char** argv) {
     
     Canvas *canvas = new RGBMatrix(&io, rows, chain, parallel);
     
-    TimerRunner timer;
-//    timer.WAIndoor(canvas);
+    displayView *display = new displayView();
+    TimerRunner *timer = new TimerRunner();
+    InetServer *server = new InetServer(canvas, timer, display);
     
-    std::thread t1(callDisplayThread, canvas, &timer, MODE_INDOOR_WA);
-    
-    getchar();
-    timer.Abort();
-    t1.join();
+    std::cout << "Waiting for connections\n";
+    server->acceptThread();
+    std::cout << "Listening\n";
+    std::thread t(callListenThread, server);
+
+    t.join();
     
     return 0;
 }

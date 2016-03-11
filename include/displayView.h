@@ -27,15 +27,16 @@ public:
     displayView(const displayView& orig);
     virtual ~displayView();
     
-    void DrawSomething(Canvas*);
-    void ColorSign(Canvas*,const Color&);
-    void ToggleGroup(Canvas*,const Font&);
-    void RemainingTime(Canvas*,const Font&,int);
-    void UpdateEnd(Canvas*,const Font&,int);
+    void colorSign(Canvas*,const Color&);
+    void toggleGroup(Canvas*,const Font&);
+    void remainingTime(Canvas*,const Font&,int);
     void nextEnd(Canvas*,const Font&);
+    void reset();
+    void setMaxEnds(int);
 private:
-    void FillSquare(Canvas*,int,int,int,int,const Color&);
-    void FillCircle(Canvas*,int,int,int,const Color&);
+    void updateEnd(Canvas*,const Font&,int);
+    void fillSquare(Canvas*,int,int,int,int,const Color&);
+    void fillCircle(Canvas*,int,int,int,const Color&);
     
     int group = 1;
     int end = 0;

@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/InetServer.o \
 	${OBJECTDIR}/TimerRunner.o \
 	${OBJECTDIR}/displayView.o \
 	${OBJECTDIR}/main.o
@@ -64,20 +65,25 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/archery-led-display: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/archery-led-display ${OBJECTFILES} ${LDLIBSOPTIONS}
 
+${OBJECTDIR}/InetServer.o: InetServer.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Imatrix/include -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/InetServer.o InetServer.cpp
+
 ${OBJECTDIR}/TimerRunner.o: TimerRunner.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Imatrix/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TimerRunner.o TimerRunner.cpp
+	$(COMPILE.cc) -g -Imatrix/include -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TimerRunner.o TimerRunner.cpp
 
 ${OBJECTDIR}/displayView.o: displayView.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Imatrix/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/displayView.o displayView.cpp
+	$(COMPILE.cc) -g -Imatrix/include -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/displayView.o displayView.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Imatrix/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -Imatrix/include -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
