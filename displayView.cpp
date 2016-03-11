@@ -40,14 +40,14 @@ void displayView::toggleGroup(Canvas* canvas, const Font& font) {
     group = (group) ? 0 : 1;
     const char* sgroup = (group == 1) ? "C/D" : "A/B";
 
-    displayView::fillSquare(canvas, 16, font.baseline(), 16, font.baseline(), Color(0,0,0));
-    rgb_matrix::DrawText(canvas, font, 17, font.baseline()*2, Color(255,255,255), sgroup);
+    displayView::fillSquare(canvas, 32, 0, 32, font.baseline(), Color(0,0,0));
+    rgb_matrix::DrawText(canvas, font, 32, font.baseline()-2, Color(255,255,0), sgroup);
 }
 
 void displayView::remainingTime(Canvas* canvas, const Font& font, int time) {
     std::string s = std::to_string(time);
-    int x = (time >= 100) ? 0 : (time >= 10) ? 5 : 10;
-    displayView::fillSquare(canvas, 0, 16, 32, 16, Color(0,0,0));
+    int x = (time >= 100) ? 33 : (time >= 10) ? 38 : 43;
+    displayView::fillSquare(canvas, 33, 16, 48, 16, Color(0,0,0));
     rgb_matrix::DrawText(canvas, font, x, 32 - font.baseline() + 14, Color(255,125,0), s.c_str());
 }
 
@@ -67,8 +67,9 @@ void displayView::setMaxEnds(int max) {
 void displayView::updateEnd(Canvas* canvas,const Font& font, int new_end) {
     end = new_end;
     std::string s = std::to_string(end) + "/" + std::to_string(max_ends);
-    fillSquare(canvas, 16, 0, 16, font.baseline(), Color(0,0,0));
-    rgb_matrix::DrawText(canvas, font, 17, font.baseline(), Color(255,0,0), s.c_str());
+    fillSquare(canvas, 65, 0, 32, 16, Color(0,0,0));
+    rgb_matrix::DrawText(canvas, font, 68, font.baseline()-1, Color(255,255,255), "Passe");
+    rgb_matrix::DrawText(canvas, font, 70, font.baseline()*2, Color(0,255,0), s.c_str());
 }
 
 void displayView::fillSquare(Canvas* canvas, int x, int y, int width, int height, const Color& color) {

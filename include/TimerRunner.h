@@ -34,6 +34,7 @@ public:
     void shootIn(Canvas*,int, bool);
     void WAIndoor(Canvas*);
 private:
+    void honk(int);
     bool countDown = false;
 };
 

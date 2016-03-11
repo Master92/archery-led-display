@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
         return 1;
     
     int rows = 16;
-    int chain = 1;
+    int chain = 3;
     int parallel = 2;
     
     Canvas *canvas = new RGBMatrix(&io, rows, chain, parallel);

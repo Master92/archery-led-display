@@ -16,6 +16,8 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
+#include <stdlib.h>
+#include <unistd.h>
 
 TimerRunner::TimerRunner() {
 }
@@ -52,6 +54,7 @@ void TimerRunner::shootIn(Canvas* canvas, int maxEnds, bool indoor) {
                 display.toggleGroup(canvas, fontMisc);
             
             for(int i = 10; i > 0; i--) {
+                
                 display.colorSign(canvas, Color(255,0,0));
                 display.remainingTime(canvas, fontTimer, i);
                 
@@ -77,15 +80,16 @@ void TimerRunner::shootIn(Canvas* canvas, int maxEnds, bool indoor) {
 
 
 void TimerRunner::WAIndoor(Canvas* canvas) {
-    Font fontMisc, fontTimer;
+    Font fontMisc, fontBig, fontTimer;
     fontMisc.LoadFont("matrix/fonts/5x8.bdf");
+    fontBig.LoadFont("matrix/fonts/10x20.bdf");
     fontTimer.LoadFont("matrix/fonts/10x20.bdf");
     
     displayView display;
     
     display.reset();
     display.setMaxEnds(10);
-    display.toggleGroup(canvas, fontMisc);
+    display.toggleGroup(canvas, fontBig);
 //    display.UpdateEnd(canvas, fontMisc, 0);
     for(int end = 0; end < 10; end++) {
         display.colorSign(canvas, Color(255,0,0));
@@ -95,8 +99,9 @@ void TimerRunner::WAIndoor(Canvas* canvas) {
             countDown = true;
             
             if (group == 1)
-                display.toggleGroup(canvas, fontMisc);
+                display.toggleGroup(canvas, fontBig);
             
+//            honk(2);
             for(int i = 10; i > 0; i--) {
                 display.colorSign(canvas, Color(255,0,0));
                 display.remainingTime(canvas, fontTimer, i);
@@ -104,6 +109,7 @@ void TimerRunner::WAIndoor(Canvas* canvas) {
                 std::this_thread::sleep_for(std::chrono::seconds(1));
             }
             
+//            honk(1);
             for(int i = 120; i > 0 && countDown; i--) {
                 Color c = (i > 30) ? Color(0,255,0) : Color(255,255,0);
                 display.colorSign(canvas, c);
@@ -113,6 +119,7 @@ void TimerRunner::WAIndoor(Canvas* canvas) {
             }
         }
         
+//        honk(3);
         display.remainingTime(canvas, fontTimer, 0);
         countDown = true;
         
@@ -123,15 +130,44 @@ void TimerRunner::WAIndoor(Canvas* canvas) {
 void TimerRunner::idle(Canvas* canvas, displayView display) {
     bool red = true;
     while (countDown) {
-        if(red) {
-            display.colorSign(canvas, Color(255,0,0));
-            red = false;
-        } else {
-            display.colorSign(canvas, Color(0,0,0));
-            red = true;
+//        if(red) {
+//            display.colorSign(canvas, Color(255,0,0));
+//            red = false;
+//        } else {
+//            display.colorSign(canvas, Color(0,0,0));
+//            red = true;
+//        }
+//        
+//        std::this_thread::sleep_for(std::chrono::seconds(1));
+        for(int i = 255; i >= 0 && countDown; i--) {
+            display.colorSign(canvas, Color(i,0,0));
+            std::this_thread::sleep_for(std::chrono::milliseconds(5));
         }
         
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        for(int i = 0; i < 256 && countDown; i++) {
+            display.colorSign(canvas, Color(i,0,0));
+            std::this_thread::sleep_for(std::chrono::milliseconds(5));
+        }
     }
 }
+
+void TimerRunner::honk(int n) {
+    char* s;
+    switch(n) {
+        case 1:
+            s = "aplay res/sounds/horn001.wav &";
+            break;
+            
+        case 2:
+            s = "aplay res/sounds/horn002.wav &";
+            break;
+            
+        default:
+            s = "aplay res/sounds/horn003.wav &";
+            break;
+    }
+    
+    system(s);
+}
+
 
