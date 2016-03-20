@@ -101,7 +101,7 @@ void TimerRunner::WAIndoor(Canvas* canvas) {
             if (group == 1)
                 display.toggleGroup(canvas, fontBig);
             
-//            honk(2);
+            honk(2);
             for(int i = 10; i > 0; i--) {
                 display.colorSign(canvas, Color(255,0,0));
                 display.remainingTime(canvas, fontTimer, i);
@@ -109,7 +109,7 @@ void TimerRunner::WAIndoor(Canvas* canvas) {
                 std::this_thread::sleep_for(std::chrono::seconds(1));
             }
             
-//            honk(1);
+            honk(1);
             for(int i = 120; i > 0 && countDown; i--) {
                 Color c = (i > 30) ? Color(0,255,0) : Color(255,255,0);
                 display.colorSign(canvas, c);
@@ -119,7 +119,7 @@ void TimerRunner::WAIndoor(Canvas* canvas) {
             }
         }
         
-//        honk(3);
+        honk(3);
         display.remainingTime(canvas, fontTimer, 0);
         countDown = true;
         
