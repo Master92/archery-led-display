@@ -31,8 +31,7 @@ public:
     
     void next();
     void idle(Canvas*,displayView);
-    void shootIn(Canvas*,int, bool);
-    void WAIndoor(Canvas*);
+    void round(Canvas*,int,int,int,bool);
 private:
     void honk(int);
     bool countDown = false;

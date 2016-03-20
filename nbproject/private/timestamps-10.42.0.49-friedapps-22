@@ -1,4 +1,4 @@
-#Sun Mar 20 14:50:51 CET 2016
+#Sun Mar 20 16:54:32 CET 2016
 /home/nils/NetBeansProjects/archery-led-display/matrix/adapter/active-3/schematic.pdf=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/python/rgbmatrix/core.pyx=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/img/running-vid.jpg=c1457075832000
@@ -8,7 +8,7 @@
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/c5/496de088af0600fabea9118e54d2e1caff7fd7=c1457076358000
 /home/nils/NetBeansProjects/archery-led-display/.git/modules/matrix/logs/HEAD=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/lib/utf8-internal.h=c1457075832000
-/home/nils/NetBeansProjects/archery-led-display/.git/logs/HEAD=c1457701461000
+/home/nils/NetBeansProjects/archery-led-display/.git/logs/HEAD=c1458482362000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/ca/b39a605d24cf2ac03352418c55352d04d720be=c1457701461000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/57/25a3955c15ac231b7ff7a0c7502c004f65e066=c1457076358000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/b9/432172ef7da317c9a9658be7cb30e82294e9dd=c1457695100000
@@ -28,11 +28,13 @@
 /home/nils/NetBeansProjects/archery-led-display/matrix/adapter/README.md=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/Makefile=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/10/13ac2eab87130bfbac11e91b2a5d923972093e=c1457197824000
+/home/nils/NetBeansProjects/archery-led-display/.git/objects/2b/3099947456c1b09dca1f41136643ba06d52816=c1458482362000
 /home/nils/NetBeansProjects/archery-led-display/matrix/img/three-parallel-panels-soic.jpg=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/33/76b1de284399ac9bb18cda03dc89eb16e7e87c=c1457076358000
 /home/nils/NetBeansProjects/archery-led-display/matrix/img/Makefile=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/0c/ec19ca9243523783b2b840ce818a5fa543f639=c1457701461000
 /home/nils/NetBeansProjects/archery-led-display/matrix/fonts/6x10.bdf=c1457075832000
+/home/nils/NetBeansProjects/archery-led-display/.git/objects/a4/f2e0f319bf62a6e71bd52a55c936a48465b14e=c1458482362000
 /home/nils/NetBeansProjects/archery-led-display/matrix/python/rgbmatrix/core.pxd=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/1f/abace3b2e0975559db69a86b778a73d1f4babf=c1457197824000
 /home/nils/NetBeansProjects/archery-led-display/matrix/README.md=c1457075832000
@@ -72,7 +74,7 @@
 /home/nils/NetBeansProjects/archery-led-display/matrix/fonts/7x14.bdf=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/10/4155a5d1a93b9764e582e95cf27a24f67c3137=c1457197824000
 /home/nils/NetBeansProjects/archery-led-display/Makefile.bak=c1457081287000
-/home/nils/NetBeansProjects/archery-led-display/.git/refs/heads/master=c1457701461000
+/home/nils/NetBeansProjects/archery-led-display/.git/refs/heads/master=c1458482362000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/63/a27a8ce6e2dfd21cca9a2b9e022931d472fed3=c1457076358000
 /home/nils/NetBeansProjects/archery-led-display/res/fonts/Asimov8pt.bdf=c1457197171000
 /home/nils/NetBeansProjects/archery-led-display/displayView.h=c1457104602000
@@ -102,6 +104,8 @@
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/78/3a75c49f7ef29aae25240ee2607f8bd26ecae3=c1457695100000
 /home/nils/NetBeansProjects/archery-led-display/matrix/runtext.ppm=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/res/fonts/Asimov5pt.bdf=c1457197090000
+/home/nils/NetBeansProjects/archery-led-display/.git/objects/fd/2378a593bf4996a1423d9e30342a164b26e724=c1458482362000
+/home/nils/NetBeansProjects/archery-led-display/.git/objects/a7/ec9b3c36c1b0b78f71665035fbbeb8a9962e62=c1458482362000
 /home/nils/NetBeansProjects/archery-led-display/matrix/fonts/9x15B.bdf=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/img/passive3-pcb.png=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/minimal-example.cc=c1457075832000
@@ -126,21 +130,21 @@
 /home/nils/NetBeansProjects/archery-led-display/matrix/adapter/passive-rpi1/passive-rpi-hub75-adapter.sch=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/python/samples/runtext.py=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/adapter/passive-rpi1/passive-rpi-hub75-adapter.kicad_pcb=c1457075832000
-/home/nils/NetBeansProjects/archery-led-display/.git/index=c1457701461000
+/home/nils/NetBeansProjects/archery-led-display/.git/index=c1458482362000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/c7/eb6f084c81d831182d0a41658b3470cf8e1a1d=c1457701461000
-/home/nils/NetBeansProjects/archery-led-display/TimerRunner.cpp=c1458481849000
+/home/nils/NetBeansProjects/archery-led-display/TimerRunner.cpp=c1458487684000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/a7/21e001672a8dd3918ce776155e675a8e3e7723=c1457197824000
 /home/nils/NetBeansProjects/archery-led-display/matrix/include/canvas.h=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/4c/428d891de0f23f7711af6fcbd181ef3a10e2fc=c1457695100000
 /home/nils/NetBeansProjects/archery-led-display/matrix/python/rgbmatrix/cppinc.pxd=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/fonts/6x12.bdf=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/adapter/active-3/Makefile=c1457075832000
-/home/nils/NetBeansProjects/archery-led-display/.git/logs/refs/heads/master=c1457701461000
+/home/nils/NetBeansProjects/archery-led-display/.git/logs/refs/heads/master=c1458482362000
 /home/nils/NetBeansProjects/archery-led-display/matrix/fonts/7x13.bdf=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/lib/graphics.cc=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/36/36f8e5ef3f4ab5ef61985dbdc7097152d2e4ea=c1457695100000
-/home/nils/NetBeansProjects/archery-led-display/matrix/python/rgbmatrix/graphics.cpp=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/fonts/clR6x12.bdf=c1457075832000
+/home/nils/NetBeansProjects/archery-led-display/matrix/python/rgbmatrix/graphics.cpp=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/fonts/7x13O.bdf=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/fonts/8x13B.bdf=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/f7/463e16243c2b93ec77ef5cf800bbf34e28f741=c1457197824000
@@ -153,7 +157,7 @@
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/b9/5c5203a0041bac369b831a16af1c00f1d6857a=c1457701461000
 /home/nils/NetBeansProjects/archery-led-display/matrix/fonts/5x8.bdf=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/76/fd8d7de4b1ca0b056c99e2f20812bebfdcb278=c1457701461000
-/home/nils/NetBeansProjects/archery-led-display/include/TimerRunner.h=c1457695406000
+/home/nils/NetBeansProjects/archery-led-display/include/TimerRunner.h=c1458486967000
 /home/nils/NetBeansProjects/archery-led-display/matrix/python/samples/simple-square.py=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/lib/.gitignore=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/7d/9b96c1e9aafe9984bf3a3092fe93cd35130def=c1457076358000
@@ -161,6 +165,7 @@
 /home/nils/NetBeansProjects/archery-led-display/matrix/adapter/active-3/active3-rpi-hub75-adapter.sch=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/fonts/9x15.bdf=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/lib/led-matrix.cc=c1457075832000
+/home/nils/NetBeansProjects/archery-led-display/.git/objects/c2/6ef3b780f063a9e9ba90921b2c4be4fa66608e=c1458482362000
 /home/nils/NetBeansProjects/archery-led-display/matrix/.gitignore=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/adapter/passive-3/README.md=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/.git/modules/matrix/logs/refs/remotes/origin/experimental-pwm-bit=c1457075832000
@@ -176,7 +181,7 @@
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/38/91f66e2ffc088f3ad3a91e7f2b3e97dbc958c0=c1457076358000
 /home/nils/NetBeansProjects/archery-led-display/matrix/led-image-viewer.cc=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/adapter/active-3/active3-rpi-hub75-adapter.kicad_pcb=c1457075832000
-/home/nils/NetBeansProjects/archery-led-display/InetServer.cpp=c1457694490000
+/home/nils/NetBeansProjects/archery-led-display/InetServer.cpp=c1458489270000
 /home/nils/NetBeansProjects/archery-led-display/.git/modules/matrix/refs/remotes/origin/experimental-dma=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/matrix/img/active3-pcb.png=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/nbproject/Makefile-Debug.mk=c1457361040000
@@ -234,6 +239,7 @@
 /home/nils/NetBeansProjects/archery-led-display/matrix/img/idc-hub75-connector.jpg=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/d3/a61b36a83c6ab866d319462ad088c6016fba37=c1457701461000
 /home/nils/NetBeansProjects/archery-led-display/matrix/fonts/8x13O.bdf=c1457075832000
+/home/nils/NetBeansProjects/archery-led-display/.git/objects/6f/e214e8f1a2fd623375e8c9b61deaa6d748a632=c1458482362000
 VERSION=1.3
 /home/nils/NetBeansProjects/archery-led-display/matrix/demo-main.cc=c1457075832000
 /home/nils/NetBeansProjects/archery-led-display/.git/objects/2d/c475bbb628da769e7a38ac513ecde3daa64d57=c1457076358000

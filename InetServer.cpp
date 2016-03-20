@@ -102,12 +102,12 @@ void InetServer::callDisplayThread(char* buffer) {
             
         case aip::SHOOT_IN:
             std::cout << "Starting shoot in programme with " << ends << " ends\n";
-            timer->shootIn(canvas, ends, true);
+            timer->round(canvas, 10, 120, ends, true);
             break;
 
         case aip::WAINDOOR:
             std::cout << "Starting WA indoor programme\n";
-            timer->WAIndoor(canvas);
+            timer->round(canvas, 10, 120, 10, true);
             break;
     }
 }

@@ -32,54 +32,21 @@ void TimerRunner::next() {
     countDown = false;
 }
 
-void TimerRunner::shootIn(Canvas* canvas, int maxEnds, bool indoor) {
-    Font fontMisc, fontTimer;
-    fontMisc.LoadFont("matrix/fonts/5x8.bdf");
-    fontTimer.LoadFont("matrix/fonts/10x20.bdf");
-    
-    displayView display;
-    
-    display.reset();
-    display.setMaxEnds(maxEnds);
-    display.toggleGroup(canvas, fontMisc);
-    
-    for(int end = 0; end < maxEnds; end++) {
-        display.colorSign(canvas, Color(255,0,0));
-        display.nextEnd(canvas, fontMisc);
-        
-        for(int group = 0; group < 2; group++) {
-            countDown = true;
-            
-            if(group == 1)
-                display.toggleGroup(canvas, fontMisc);
-            
-            for(int i = 10; i > 0; i--) {
-                
-                display.colorSign(canvas, Color(255,0,0));
-                display.remainingTime(canvas, fontTimer, i);
-                
-                std::this_thread::sleep_for(std::chrono::seconds(1));
-            }
-            
-            for(int i = (indoor) ? 120 : 240; i > 0 && countDown; i--) {
-                Color c = (i > 30) ? Color(0,255,0) : Color(255,255,0);
-                
-                display.colorSign(canvas, c);
-                display.remainingTime(canvas, fontTimer, i);
-                
-                std::this_thread::sleep_for(std::chrono::seconds(1));
-            }
+void TimerRunner::idle(Canvas* canvas, displayView display) {
+    while (countDown) {
+        for(int i = 255; i >= 0 && countDown; i--) {
+            display.colorSign(canvas, Color(i,0,0));
+            std::this_thread::sleep_for(std::chrono::milliseconds(5));
         }
         
-        display.remainingTime(canvas, fontTimer, 0);
-        countDown = true;
-        
-        idle(canvas, display);
+        for(int i = 0; i < 256 && countDown; i++) {
+            display.colorSign(canvas, Color(i,0,0));
+            std::this_thread::sleep_for(std::chrono::milliseconds(5));
+        }
     }
 }
 
-
-void TimerRunner::WAIndoor(Canvas* canvas) {
+void TimerRunner::round(Canvas* canvas, int preparation, int timer, int ends, bool abcd) {
     Font fontMisc, fontBig, fontTimer;
     fontMisc.LoadFont("matrix/fonts/5x8.bdf");
     fontBig.LoadFont("matrix/fonts/10x20.bdf");
@@ -88,21 +55,23 @@ void TimerRunner::WAIndoor(Canvas* canvas) {
     displayView display;
     
     display.reset();
-    display.setMaxEnds(10);
-    display.toggleGroup(canvas, fontBig);
-//    display.UpdateEnd(canvas, fontMisc, 0);
-    for(int end = 0; end < 10; end++) {
+    display.setMaxEnds(ends);
+    
+    if(abcd)
+        display.toggleGroup(canvas, fontBig);
+    
+    for(int end = 0; end < ends; end++) {
         display.colorSign(canvas, Color(255,0,0));
         display.nextEnd(canvas, fontMisc);
         
-        for(int group = 0; group < 2; group++) {
+        for(int group = (abcd) ? 0 : 1; group < 2; group++) {
             countDown = true;
             
-            if (group == 1)
+            if(abcd && group == 1)
                 display.toggleGroup(canvas, fontBig);
             
             honk(2);
-            for(int i = 10; i > 0; i--) {
+            for(int i = preparation; i > 0; i--) {
                 display.colorSign(canvas, Color(255,0,0));
                 display.remainingTime(canvas, fontTimer, i);
                 
@@ -110,7 +79,7 @@ void TimerRunner::WAIndoor(Canvas* canvas) {
             }
             
             honk(1);
-            for(int i = 120; i > 0 && countDown; i--) {
+            for(int i = timer; i > 0 && countDown; i--) {
                 Color c = (i > 30) ? Color(0,255,0) : Color(255,255,0);
                 display.colorSign(canvas, c);
                 display.remainingTime(canvas, fontTimer, i);
@@ -127,29 +96,6 @@ void TimerRunner::WAIndoor(Canvas* canvas) {
     }
 }
 
-void TimerRunner::idle(Canvas* canvas, displayView display) {
-    bool red = true;
-    while (countDown) {
-//        if(red) {
-//            display.colorSign(canvas, Color(255,0,0));
-//            red = false;
-//        } else {
-//            display.colorSign(canvas, Color(0,0,0));
-//            red = true;
-//        }
-//        
-//        std::this_thread::sleep_for(std::chrono::seconds(1));
-        for(int i = 255; i >= 0 && countDown; i--) {
-            display.colorSign(canvas, Color(i,0,0));
-            std::this_thread::sleep_for(std::chrono::milliseconds(5));
-        }
-        
-        for(int i = 0; i < 256 && countDown; i++) {
-            display.colorSign(canvas, Color(i,0,0));
-            std::this_thread::sleep_for(std::chrono::milliseconds(5));
-        }
-    }
-}
 
 void TimerRunner::honk(int n) {
     char* s;
