@@ -48,12 +48,14 @@ int main(int argc, char** argv) {
     TimerRunner *timer = new TimerRunner();
     InetServer *server = new InetServer(canvas, timer, display);
     
-    std::cout << "Waiting for connections\n";
-    server->acceptThread();
-    std::cout << "Listening\n";
-    std::thread t(callListenThread, server);
+    while(server->keepRunning()) {
+        std::cout << "Waiting for connections\n";
+        server->acceptThread();
+        std::cout << "Listening\n";
+        std::thread t(callListenThread, server);
 
-    t.join();
+        t.join();
+    }
     
     return 0;
 }

@@ -28,12 +28,13 @@ public:
     
     void handleEverything();
     void callDisplayThread(char*);
+    bool keepRunning();
 private:
     int servsock, clisock;
     Canvas* canvas;
     TimerRunner* timer;
     displayView* display;
-    
+    bool r = true;
 };
 
 #endif /* INETSERVER_H */

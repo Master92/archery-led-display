@@ -109,5 +109,15 @@ void InetServer::callDisplayThread(char* buffer) {
             std::cout << "Starting WA indoor programme\n";
             timer->round(canvas, 10, 120, 10, true);
             break;
+            
+        case aip::EXIT:
+            std::cout << "Quitting";
+            r = false;
+            break;
     }
 }
+
+bool InetServer::keepRunning() {
+    return r;
+}
+
