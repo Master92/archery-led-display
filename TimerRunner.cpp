@@ -101,15 +101,15 @@ void TimerRunner::honk(int n) {
     char* s;
     switch(n) {
         case 1:
-            s = "aplay res/sounds/horn001.wav &";
+            s = "aplay -q res/sounds/horn001.wav &";
             break;
             
         case 2:
-            s = "aplay res/sounds/horn002.wav &";
+            s = "aplay -q res/sounds/horn002.wav &";
             break;
             
         default:
-            s = "aplay res/sounds/horn003.wav &";
+            s = "aplay -q res/sounds/horn003.wav &";
             break;
     }
     
