@@ -69,19 +69,13 @@ void InetServer::handleEverything() {
     bool readOn = true;
     
     while(readOn) {
-//        if(read(clisock, buffer, 255) == 0)
-//            readOn = false;
-        
         if(recv(clisock, buffer, 2, MSG_WAITALL) == 0)
             readOn = false;
         
         strcpy(b2, buffer);
-        
-        std::cout << b2;
+
         std::thread t (&InetServer::callDisplayThread, this, b2);
         t.detach();
-        
-//        CallDisplayThread(command);
         
         bzero(buffer, 256);
     }
