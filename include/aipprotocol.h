@@ -23,8 +23,6 @@ namespace aip {
     
     static const int SHOOT_IN = 20;
     static const int WAINDOOR = 21;
-    
-    static const int EXIT = 99;
 }
 
 #endif /* AIPPROTOCOL_H */

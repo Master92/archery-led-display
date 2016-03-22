@@ -34,7 +34,6 @@ private:
     Canvas* canvas;
     TimerRunner* timer;
     displayView* display;
-    bool r = true;
 };
 
 #endif /* INETSERVER_H */

@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
     TimerRunner *timer = new TimerRunner();
     InetServer *server = new InetServer(canvas, timer, display);
     
-    while(server->keepRunning()) {
+    while(true) {
         std::cout << "Waiting for connections\n";
         server->acceptThread();
         std::cout << "Listening\n";
