@@ -31,6 +31,12 @@ $(RGB_LIBRARY): FORCE
 
 led-server : $(SERV_OBJECTS) $(RGB_LIBRARY)
 	$(CXX) $(CXXFLAGS) $(SERV_OBJECTS) -o $@ $(LDFLAGS)
+	
+install:
+	cp archery-led-display /etc/init.d/archery-led-display
+	cp led-server /usr/local/sbin/led-server
+	chmod +x /etc/init.d/archery-led-display
+	update-rc.d archery-led-display defaults
 
 %.o : %.cpp
 	$(CXX) $(INCLUDE) $(CXXFLAGS) -c -o $@ $<
