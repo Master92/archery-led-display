@@ -48,9 +48,9 @@ void TimerRunner::idle(Canvas* canvas, displayView display) {
 
 void TimerRunner::round(Canvas* canvas, int preparation, int timer, int ends, bool abcd) {
     Font fontMisc, fontBig, fontTimer;
-    fontMisc.LoadFont("matrix/fonts/5x8.bdf");
-    fontBig.LoadFont("matrix/fonts/10x20.bdf");
-    fontTimer.LoadFont("matrix/fonts/10x20.bdf");
+    fontMisc.LoadFont("/etc/archery-led-display/fonts/5x8.bdf");
+    fontBig.LoadFont("/etc/archery-led-display/fonts/10x20.bdf");
+    fontTimer.LoadFont("/etc/archery-led-display/fonts/10x20.bdf");
     
     displayView display;
     
@@ -101,15 +101,15 @@ void TimerRunner::honk(int n) {
     char* s;
     switch(n) {
         case 1:
-            s = "aplay -q res/sounds/horn001.wav &";
+            s = "aplay -q /etc/archery-led-display/sounds/horn001.wav &";
             break;
             
         case 2:
-            s = "aplay -q res/sounds/horn002.wav &";
+            s = "aplay -q /etc/archery-led-display/sounds/horn002.wav &";
             break;
             
         default:
-            s = "aplay -q res/sounds/horn003.wav &";
+            s = "aplay -q /etc/archery-led-display/sounds/horn003.wav &";
             break;
     }
     

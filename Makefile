@@ -34,7 +34,11 @@ led-server : $(SERV_OBJECTS) $(RGB_LIBRARY)
 	
 install:
 	cp archery-led-display /etc/init.d/archery-led-display
-	cp led-server /usr/local/sbin/led-server
+	cp led-server /usr/sbin/led-server
+	if [ ! -d /etc/archery-led-display ]; then mkdir /etc/archery-led-display; mkdir /etc/archery-led-display/fonts; mkdir /etc/archery-led-display/sounds; fi
+	cp matrix/fonts/5x8.bdf /etc/archery-led-display/fonts/
+	cp matrix/fonts/10x20.bdf /etc/archery-led-display/fonts/
+	cp res/sounds/* /etc/archery-led-display/sounds/
 	chmod +x /etc/init.d/archery-led-display
 	update-rc.d archery-led-display defaults
 
@@ -44,6 +48,12 @@ install:
 clean:
 	rm -f $(SERV_OBJECTS) $(BINARIES)
 	$(MAKE) -C matrix/lib clean
+	
+uninstall:
+	rm -rf /etc/archery-led-display/
+	update-rc.d -f archery-led-display remove
+	rm -f /etc/init.d/archery-led-display
+	rm -f /usr/sbin/led-server
 
 FORCE:
 .PHONY: FORCE
