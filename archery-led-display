@@ -10,7 +10,7 @@
 ### END INIT INFO
 
 NAME=archery-led-server
-DAEMON=/usr/local/sbin/led-server
+DAEMON=/usr/sbin/led-server
 PIDFILE=/var/run/led-server.pid
 SCRIPTNAME=/etc/init.d/$NAME
 
@@ -19,12 +19,12 @@ SCRIPTNAME=/etc/init.d/$NAME
 # Actions
 case "$1" in
     start)  log_daemon_msg "Starting led-server" "archery-led-display"
-            start_daemon -p $PIDFILE $DAEMON
+            start-stop-daemon --start --pidfile $PIDFILE --oknodo --make-pidfile --exec $DAEMON
             log_end_msg $?
             ;;
 
     stop)   log_daemon_msg "Stopping led-server" "archery-led-display"
-            killproc -p $PIDFILE $DAEMON
+            start-stop-daemon --stop --pidfile $PIDFILE --oknodo $DAEMON
             RETVAL=$?
             [ $RETVAL -eq 0 ] && [ -e $PIDFILE ] && rm -f $PIDFILE
             log_end_msg $RETVAL
