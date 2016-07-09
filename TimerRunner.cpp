@@ -13,10 +13,14 @@
 
 #include "TimerRunner.h"
 #include "displayView.h"
+#include "include/aipprotocol.h"
+#include <sys/types.h>
+#include <sys/socket.h>
 #include <thread>
 #include <chrono>
 #include <iostream>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 TimerRunner::TimerRunner() {
@@ -27,6 +31,11 @@ TimerRunner::TimerRunner(const TimerRunner& orig) {
 
 TimerRunner::~TimerRunner() {
 }
+
+void TimerRunner::setClisock(int sock) {
+    clisock = sock;
+}
+
 
 void TimerRunner::next() {
     countDown = false;
@@ -54,6 +63,7 @@ void TimerRunner::round(Canvas* canvas, int preparation, int timer, int ends, bo
     
     displayView display;
     
+    display.clear(canvas);
     display.reset();
     display.setMaxEnds(ends);
     
@@ -72,6 +82,7 @@ void TimerRunner::round(Canvas* canvas, int preparation, int timer, int ends, bo
             
             honk(2);
             for(int i = preparation; i > 0; i--) {
+                sendUpdate(i, aip::COLOR_RED, group, end);
                 display.colorSign(canvas, Color(255,0,0));
                 display.remainingTime(canvas, fontTimer, i);
                 
@@ -80,12 +91,24 @@ void TimerRunner::round(Canvas* canvas, int preparation, int timer, int ends, bo
             
             honk(1);
             for(int i = timer; i > 0 && countDown; i--) {
-                Color c = (i > 30) ? Color(0,255,0) : Color(255,255,0);
+                Color c = Color(0,255,0);
+                int cUpdate;
+                
+                if(i > 30) {
+                    c = Color(0,255,0);
+                    cUpdate = aip::COLOR_GREEN;
+                } else {
+                    c = Color(255,255,0);
+                    cUpdate = aip::COLOR_YELLOW;
+                }
+                sendUpdate(i, cUpdate, group, end);
+                
                 display.colorSign(canvas, c);
                 display.remainingTime(canvas, fontTimer, i);
                 
                 std::this_thread::sleep_for(std::chrono::seconds(1));
             }
+            sendUpdate(0, aip::COLOR_RED, group, end);
         }
         
         honk(3);
@@ -116,4 +139,13 @@ void TimerRunner::honk(int n) {
     system(s);
 }
 
-
+void TimerRunner::sendUpdate(int timer, int color, int group, int end) {
+    char buffer[4];
+    buffer[0] = timer;
+    buffer[1] = color;
+    buffer[2] = group;
+    buffer[3] = end;
+    
+    send(clisock, buffer, strlen(buffer), MSG_CONFIRM);
+    std::cout << "Sent update\n";
+}

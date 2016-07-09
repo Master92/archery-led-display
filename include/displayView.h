@@ -27,6 +27,7 @@ public:
     displayView(const displayView& orig);
     virtual ~displayView();
     
+    void clear(Canvas*);
     void colorSign(Canvas*,const Color&);
     void toggleGroup(Canvas*,const Font&);
     void remainingTime(Canvas*,const Font&,int);

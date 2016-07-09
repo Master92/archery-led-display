@@ -32,6 +32,11 @@ displayView::~displayView() {
 
 }
 
+void displayView::clear(Canvas* canvas) {
+    fillSquare(canvas, 0, 0, canvas->width(), canvas->height(), Color(0,0,0));
+}
+
+
 void displayView::colorSign(Canvas* canvas, const Color& color) {
     displayView::fillSquare(canvas, 0, 0, 16, 16, color);
 }

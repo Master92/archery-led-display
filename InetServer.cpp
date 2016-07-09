@@ -48,6 +48,7 @@ void InetServer::acceptThread() {
     struct sockaddr_in cli_addr;
     socklen_t clilen = sizeof(cli_addr);
     clisock = accept(servsock, (struct sockaddr *) &cli_addr, &clilen);
+    timer->setClisock(clisock);
     if(clisock < 0)
         std::cout << "Error on accept";
 }
@@ -102,6 +103,11 @@ void InetServer::callDisplayThread(char* buffer) {
         case aip::WAINDOOR:
             std::cout << "Starting WA indoor programme\n";
             timer->round(canvas, 10, 120, 10, true);
+            break;
+            
+        case aip::FINALE:
+            std::cout << "Starting finale programme with " << ends << " ends\n";
+            timer->round(canvas, 10, 120, ends, false);
             break;
     }
 }

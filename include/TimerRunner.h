@@ -32,9 +32,12 @@ public:
     void next();
     void idle(Canvas*,displayView);
     void round(Canvas*,int,int,int,bool);
+    void setClisock(int);
 private:
-    void honk(int);
+    int clisock;
     bool countDown = false;
+    void honk(int);
+    void sendUpdate(int timer, int color, int group, int end);
 };
 
 #endif /* TIMERRUNNER_H */

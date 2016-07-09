@@ -23,6 +23,11 @@ namespace aip {
     
     static const int SHOOT_IN = 20;
     static const int WAINDOOR = 21;
+    static const int FINALE = 30;
+    
+    static const int COLOR_RED=100;
+    static const int COLOR_YELLOW=101;
+    static const int COLOR_GREEN=102;
 }
 
 #endif /* AIPPROTOCOL_H */
