@@ -29,15 +29,22 @@ public:
     TimerRunner(const TimerRunner& orig);
     virtual ~TimerRunner();
     
+    void addEnd();
     void next();
+    void idle(Canvas*);
     void idle(Canvas*,displayView);
-    void round(Canvas*,int,int,int,bool);
+    void round(Canvas*,int preparation,int timer,int ends,bool groups);
     void setClisock(int);
+    void runtext(Canvas*,char* text);
+    void timer(Canvas*, int hours, int minutes, int seconds);
+    void showClock(Canvas*);
 private:
-    int clisock;
-    bool countDown = false;
+    int clisock, fEnds;
+    bool doRun = false;
+    bool init = true;
+    bool sthNewPossible = true;
     void honk(int);
-    void sendUpdate(int timer, int color, int group, int end);
+    void sendUpdate(int timer, int color, int group, int end, int max_ends);
 };
 
 #endif /* TIMERRUNNER_H */

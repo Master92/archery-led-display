@@ -57,7 +57,7 @@ void displayView::remainingTime(Canvas* canvas, const Font& font, int time) {
 }
 
 void displayView::nextEnd(Canvas* canvas, const Font& font) {
-    updateEnd(canvas, font, end + 1);
+    updateEnd(canvas, font, ++end);
 }
 
 void displayView::reset() {
@@ -67,6 +67,10 @@ void displayView::reset() {
 
 void displayView::setMaxEnds(int max) {
     max_ends = max;
+}
+
+void displayView::printText(Canvas* canvas, const Font& font, int x, int y, const Color& color, char* text) {
+    rgb_matrix::DrawText(canvas, font, x, y, color, text);
 }
 
 void displayView::updateEnd(Canvas* canvas,const Font& font, int new_end) {

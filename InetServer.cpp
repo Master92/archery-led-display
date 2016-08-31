@@ -65,29 +65,33 @@ InetServer::~InetServer() {
 }
 
 void InetServer::handleEverything() {
-    char buffer[256], b2[256];
-    std::string s;
+    char buffer[129], b2[129];
     bool readOn = true;
     
     while(readOn) {
-        if(recv(clisock, buffer, 2, MSG_WAITALL) == 0)
+        if(recv(clisock, buffer, 1, MSG_PEEK) == 0)
             readOn = false;
+        
+        read(clisock, buffer, buffer[0]);
         
         strcpy(b2, buffer);
 
         std::thread t (&InetServer::callDisplayThread, this, b2);
         t.detach();
         
-        bzero(buffer, 256);
+        bzero(buffer, 129);
     }
     
     close(clisock);
 }
 
 void InetServer::callDisplayThread(char* buffer) {
-    int command = int(buffer[0]);
-    int ends = int(buffer[1]);
-    bzero(buffer, sizeof(buffer));
+    int command = int(buffer[1]);
+    int ends = int(buffer[2]);
+    int preparation = int(buffer[3]);
+    int duration = int(buffer[4]) * 10 + int(buffer[5]);
+    bool groups = (buffer[6] == '0') ? false : true;
+    char text[127];
     
     switch(command) {
         case aip::NEXT:
@@ -105,9 +109,67 @@ void InetServer::callDisplayThread(char* buffer) {
             timer->round(canvas, 10, 120, 10, true);
             break;
             
+        case aip::WAOUTDOOR:
+            std::cout << "Starting WA outdoor programme\n";
+            timer->round(canvas, 10, 240, 6, true);
+            break;
+            
         case aip::FINALE:
             std::cout << "Starting finale programme with " << ends << " ends\n";
             timer->round(canvas, 10, 120, ends, false);
             break;
+            
+        case aip::NEW_ROUND:
+            std::cout << "New round" << std::endl;
+            timer->round(canvas, preparation, duration, ends, groups);
+            break;
+            
+        case aip::RUNTEXT:
+            for(int i = 0; i < int(buffer[0]-2); i++) {
+                text[i] = buffer[i+2];
+            }
+            text[buffer[1]] = '\0';
+            std::cout << "Received runtext" << std::endl;
+            
+            timer->runtext(canvas, text);
+            break;
+            
+        case aip::TIMER:
+            timer->timer(canvas, buffer[2], buffer[3], buffer[4]);
+            break;
+            
+        case aip::TIME:
+            timer->showClock(canvas);
+            break;
+            
+        case aip::SYNC:
+            char time[19];
+            for(int i = 0; i < 4; i++) {
+                time[i] = buffer[i+2];
+            }
+            time[4] = '-';
+            time[5] = buffer[7];
+            time[6] = buffer[8];
+            time[7] = '-';
+            time[8] = buffer[9];
+            time[9] = buffer[10];
+            time[10] = ' ';
+            time[11] = buffer[11];
+            time[12] = buffer[12];
+            time[13] = ':';
+            time[14] = buffer[13];
+            time[15] = buffer[14];
+            time[16] = ':';
+            time[17] = buffer[15];
+            time[18] = buffer[16];
+            std::string command = "date -s \"";
+            command += time;
+            command += "\"";
+            
+            std::cout << command << std::endl;
+            //system(command.c_str());
+            break;
     }
+    
+    bzero(buffer, sizeof(buffer));
 }

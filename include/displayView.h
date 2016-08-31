@@ -34,6 +34,8 @@ public:
     void nextEnd(Canvas*,const Font&);
     void reset();
     void setMaxEnds(int);
+    //void runtext(Canvas*,const Font&,char*);
+    void printText(Canvas*,const Font&,int,int,const Color&,char*);
 private:
     void updateEnd(Canvas*,const Font&,int);
     void fillSquare(Canvas*,int,int,int,int,const Color&);
