@@ -75,7 +75,7 @@ void TimerRunner::runtext(Canvas* canvas, char* text) {
     displayView display;
     font.LoadFont("/etc/archery-led-display/fonts/10x20.bdf");
     
-    int left = -((strlen(text) * 10)/* + canvas->width()*/);
+    int left = -(strlen(text) * 10);
     while(doRun) {
         for(int i = canvas->width(); i > left; i--) {
             display.clear(canvas);

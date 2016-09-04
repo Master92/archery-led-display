@@ -75,10 +75,8 @@ void InetServer::handleEverything() {
         
         read(clisock, buffer, buffer[0]);
         
-//        strcpy(b2, buffer);
         char c = buffer[0];
         for(int i = 0; readOn && c != (char)127; i++) {
-            std::cout << int(c) << ' ';
             b2[i] = c = buffer[i];
         }
 
@@ -145,13 +143,13 @@ void InetServer::callDisplayThread(char* buffer) {
                 text[i] = buffer[i+2];
             }
             text[int(buffer[0])-3] = '\0';
-            std::cout << "Received runtext" << std::endl;
+            std::cout << "Received runtext" << text << std::endl;
             
             timer->runtext(canvas, text);
             break;
             
         case aip::TIMER:
-            std::cout << "Setting timer" << std::endl;
+            std::cout << "Setting timer to ";
             std::cout << int(buffer[2]) << ":" << int(buffer[3]) << ":" << int(buffer[4]) << std::endl;
             timer->timer(canvas, buffer[2], buffer[3], buffer[4]);
             break;
