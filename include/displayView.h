@@ -38,6 +38,7 @@ public:
     void reset();
     void setMaxEnds(int);
     void printText(Canvas*,const Font&,int,int,const Color&,char*);
+    void clearTextClockTimer(Canvas*);
     void addEnd();
     void delEnd();
     void updateEnds(Canvas* canvas, const Font& font);

@@ -74,12 +74,15 @@ void displayView::printText(Canvas* canvas, const Font& font, int x, int y, cons
     rgb_matrix::DrawText(canvas, font, x, y, color, text);
 }
 
+void displayView::clearTextClockTimer(Canvas* canvas) {
+    fillSquare(canvas, 8, 8, 80, 20, Color(0,0,0));
+}
+
 void displayView::updateEnds(Canvas* canvas, const Font& font) {
     updateEnd(canvas, font, end);
 }
 
 void displayView::updateEnd(Canvas* canvas,const Font& font, int new_end) {
-    std::cout << "Updating ends to max " << int(max_ends) << std::endl;
     end = new_end;
     std::string s = std::to_string(end) + "/" + std::to_string(max_ends);
     fillSquare(canvas, 65, 0, 32, 16, Color(0,0,0));

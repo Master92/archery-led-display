@@ -110,7 +110,7 @@ void TimerRunner::timer(Canvas* canvas, int hours, int minutes, int seconds) {
         text[6] = (seconds > 9) ? floor(seconds/10) + '0' : '0';
         text[7] = (seconds > 9) ? seconds - (floor(seconds/10) * 10) +'0' : seconds + '0';
         
-        display.clear(canvas);
+        display.clearTextClockTimer(canvas);
         display.printText(canvas, font, posX, posY, Color(255, 255, 255), text);
         std::this_thread::sleep_for(std::chrono::seconds(1));
         
@@ -155,9 +155,9 @@ void TimerRunner::showClock(Canvas* canvas) {
         time(&raw_time);
         local_time = localtime(&raw_time);
         strftime(time_str, sizeof(time_str),"%H:%M:%S", local_time);
-        dp.clear(canvas);
+        dp.clearTextClockTimer(canvas);
         dp.printText(canvas, font, posX, posY, Color(255,255,255), time_str);
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        std::this_thread::sleep_for(std::chrono::milliseconds(990));
     }
     
     dp.clear(canvas);
