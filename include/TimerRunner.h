@@ -30,7 +30,6 @@ using rgb_matrix::Color;
 class TimerRunner {
 public:
     TimerRunner();
-    TimerRunner(const TimerRunner& orig);
     virtual ~TimerRunner();
     
     void addEnd();
@@ -47,6 +46,7 @@ private:
     bool doRun = false;
     bool init = true;
     bool sthNewPossible = true;
+    bool roundInProgress = false;
     void honk(int);
     void sendUpdate(int timer, int color, int group, int end, int max_ends);
 };

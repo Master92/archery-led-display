@@ -26,7 +26,6 @@
 class InetServer {
 public:
     InetServer(Canvas*,TimerRunner*,displayView*);
-    InetServer(const InetServer& orig);
     virtual ~InetServer();
     void acceptThread();
     

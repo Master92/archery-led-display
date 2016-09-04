@@ -32,9 +32,6 @@
 TimerRunner::TimerRunner() {
 }
 
-TimerRunner::TimerRunner(const TimerRunner& orig) {
-}
-
 TimerRunner::~TimerRunner() {
 }
 
@@ -47,7 +44,7 @@ void TimerRunner::addEnd() {
 }
 
 void TimerRunner::next() {
-    doRun = (doIdle) ? true : false;
+    doRun = (sthNewPossible) ? true : false;
 }
 
 void TimerRunner::idle(Canvas* canvas, displayView display) {
@@ -62,48 +59,26 @@ void TimerRunner::idle(Canvas* canvas, displayView display) {
             std::this_thread::sleep_for(std::chrono::milliseconds(5));
         }
     }
-    sthNewPossible = false;
 }
 
 void TimerRunner::idle(Canvas* canvas) {
+    sthNewPossible = false;
     doRun = true;
-    sthNewPossible = true;
     displayView display;
     idle(canvas, display);
 }
 
 void TimerRunner::runtext(Canvas* canvas, char* text) {
-//    if (doRun && !doIdle)
-//        return;
-//    else if (doIdle) {
-//        doIdle = false;
-//        std::this_thread::sleep_for(std::chrono::seconds(2));
-//    }
     if(!sthNewPossible)
         return;
-    else {
-        doRun = false;
-        if(init)
-            sthNewPossible = false;
-        
-        while(sthNewPossible) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(250));
-        }
-    }
     
-    sthNewPossible = doRun = true;
+    sthNewPossible = false;
+    doRun = true;
     Font font;
     displayView display;
     font.LoadFont("/etc/archery-led-display/fonts/10x20.bdf");
     
-    int width = 0;
-    int length = strlen(text);
-    for(int i = 0; i < length; i++) {
-        char c = text[i];
-        width += font.CharacterWidth(c) + 3;
-    }
-    
-    int left = -((length * 10) + canvas->width());
+    int left = -((strlen(text) * 10)/* + canvas->width()*/);
     while(doRun) {
         for(int i = canvas->width(); i > left; i--) {
             display.clear(canvas);
@@ -111,46 +86,32 @@ void TimerRunner::runtext(Canvas* canvas, char* text) {
             std::this_thread::sleep_for(std::chrono::milliseconds(35));
         }
     }
-    sthNewPossible = false;
+    sthNewPossible = true;
 }
 
 void TimerRunner::timer(Canvas* canvas, int hours, int minutes, int seconds) {
-//    if (doRun && !doIdle)
-//        return;
-//    else if (doIdle) {
-//        doIdle = false;
-//    }
-    
     if(!sthNewPossible)
         return;
-    else {
-        doRun = false;
-        if(init)
-            sthNewPossible = false;
-        
-        while(sthNewPossible) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(250));
-        }
-    }
     
-    sthNewPossible = true;
+    sthNewPossible = false;
     doRun = true;
     Font font;
     displayView display;
     
     font.LoadFont("/etc/archery-led-display/fonts/10x20.bdf");
     int posX = 8, posY = canvas->height()/2 + font.baseline()/2;
-    char text[posX];
+    char text[9];
+    bzero(text, 9 * sizeof(char));
     text[2] = ':';
     text[5] = ':';
     
     while(doRun) {
-        text[0] = (hours > 9) ? 1 : 0;
-        text[1] = (hours > 9) ? hours - 10 : hours;
-        text[3] = (minutes > 9) ? floor(minutes/10) : 0;
-        text[4] = (minutes > 9) ? minutes - (floor(minutes/10) * 10) : minutes;
-        text[6] = (seconds > 9) ? floor(seconds/10) : 0;
-        text[7] = (seconds > 9) ? seconds - (floor(seconds/10) * 10) : seconds;
+        text[0] = (hours > 9) ? '1' : '0';
+        text[1] = (hours > 9) ? hours - 10 + '0' : hours + '0';
+        text[3] = (minutes > 9) ? floor(minutes/10) + '0' : '0';
+        text[4] = (minutes > 9) ? minutes - (floor(minutes/10) * 10) + '0' : minutes + '0';
+        text[6] = (seconds > 9) ? floor(seconds/10) + '0' : '0';
+        text[7] = (seconds > 9) ? seconds - (floor(seconds/10) * 10) +'0' : seconds + '0';
         
         display.clear(canvas);
         display.printText(canvas, font, posX, posY, Color(255, 255, 255), text);
@@ -173,30 +134,15 @@ void TimerRunner::timer(Canvas* canvas, int hours, int minutes, int seconds) {
             --seconds;
         }
     }
-    sthNewPossible = false;
+    display.clear(canvas);
+    sthNewPossible = true;
 }
 
 void TimerRunner::showClock(Canvas* canvas) {
-//    if(doRun && !doIdle) {
-//        return;
-//    } else if(doIdle) {
-//        doIdle = false;
-//        doRun = false;
-//        std::this_thread::sleep_for(std::chrono::seconds(2));
-//    }
     if(!sthNewPossible)
         return;
-    else {
-        doRun = false;
-        if(init)
-            sthNewPossible = false;
-        
-        while(sthNewPossible) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(250));
-        }
-    }
     
-    sthNewPossible = true;
+    sthNewPossible = false;
     doRun = true;
     displayView dp;
     Font font;
@@ -214,31 +160,16 @@ void TimerRunner::showClock(Canvas* canvas) {
         strftime(time_str, sizeof(time_str),"%H:%M:%S", local_time);
         dp.clear(canvas);
         dp.printText(canvas, font, posX, posY, Color(255,255,255), time_str);
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
     
-    sthNewPossible = false;
+    dp.clear(canvas);
+    sthNewPossible = true;
 }
 
 void TimerRunner::round(Canvas* canvas, int preparation, int timer, int ends, bool abcd) {
-//    if(doRun && !doIdle) {
-//        return;
-//    } else if(doIdle) {
-//        doIdle = false;
-//        doRun = false;
-//    }
-    
     if(!sthNewPossible)
         return;
-    else {
-        doRun = false;
-        if(init)
-            sthNewPossible = false;
-        
-        while(sthNewPossible) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(250));
-        }
-    }
     
     Font fontMisc, fontBig, fontTimer;
     fontMisc.LoadFont("/etc/archery-led-display/fonts/5x8.bdf");
@@ -256,6 +187,7 @@ void TimerRunner::round(Canvas* canvas, int preparation, int timer, int ends, bo
         display.toggleGroup(canvas, fontBig);
     
     for(int end = 0; end < fEnds; end++) {
+        sthNewPossible = false;
         display.colorSign(canvas, Color(255,0,0));
         display.nextEnd(canvas, fontMisc);
         
@@ -300,10 +232,11 @@ void TimerRunner::round(Canvas* canvas, int preparation, int timer, int ends, bo
         display.remainingTime(canvas, fontTimer, 0);
         doRun = true;
         
+        idle(canvas, display);
         if(end + 1 == fEnds) {
             sthNewPossible = true;
+            display.clear(canvas);
         }
-        idle(canvas, display);
     }
 }
 

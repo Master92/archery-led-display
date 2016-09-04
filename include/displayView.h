@@ -28,7 +28,6 @@ using rgb_matrix::Font;
 class displayView {
 public:
     displayView();
-    displayView(const displayView& orig);
     virtual ~displayView();
     
     void clear(Canvas*);

@@ -29,9 +29,6 @@ displayView::displayView() {
 
 }
 
-displayView::displayView(const displayView& orig) {
-}
-
 displayView::~displayView() {
 
 }

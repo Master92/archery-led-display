@@ -57,9 +57,6 @@ void InetServer::acceptThread() {
         std::cout << "Error on accept";
 }
 
-InetServer::InetServer(const InetServer& orig) {
-}
-
 InetServer::~InetServer() {
     if(!(clisock < 0)) {
         close(clisock);
@@ -78,7 +75,12 @@ void InetServer::handleEverything() {
         
         read(clisock, buffer, buffer[0]);
         
-        strcpy(b2, buffer);
+//        strcpy(b2, buffer);
+        char c = buffer[0];
+        for(int i = 0; readOn && c != (char)127; i++) {
+            std::cout << int(c) << ' ';
+            b2[i] = c = buffer[i];
+        }
 
         std::thread t (&InetServer::callDisplayThread, this, b2);
         t.detach();
@@ -129,16 +131,18 @@ void InetServer::callDisplayThread(char* buffer) {
             break;
             
         case aip::RUNTEXT:
-            for(int i = 0; i < int(buffer[0]-2); i++) {
+            for(int i = 0; i < int(buffer[0]-3); i++) {
                 text[i] = buffer[i+2];
             }
-            text[buffer[1]] = '\0';
+            text[int(buffer[0])-3] = '\0';
             std::cout << "Received runtext" << std::endl;
             
             timer->runtext(canvas, text);
             break;
             
         case aip::TIMER:
+            std::cout << "Setting timer" << std::endl;
+            std::cout << int(buffer[2]) << ":" << int(buffer[3]) << ":" << int(buffer[4]) << std::endl;
             timer->timer(canvas, buffer[2], buffer[3], buffer[4]);
             break;
             
@@ -152,26 +156,25 @@ void InetServer::callDisplayThread(char* buffer) {
                 time[i] = buffer[i+2];
             }
             time[4] = '-';
-            time[5] = buffer[7];
-            time[6] = buffer[8];
+            time[5] = buffer[6];
+            time[6] = buffer[7];
             time[7] = '-';
-            time[8] = buffer[9];
-            time[9] = buffer[10];
+            time[8] = buffer[8];
+            time[9] = buffer[9];
             time[10] = ' ';
-            time[11] = buffer[11];
-            time[12] = buffer[12];
+            time[11] = buffer[10];
+            time[12] = buffer[11];
             time[13] = ':';
-            time[14] = buffer[13];
-            time[15] = buffer[14];
+            time[14] = buffer[12];
+            time[15] = buffer[13];
             time[16] = ':';
-            time[17] = buffer[15];
-            time[18] = buffer[16];
+            time[17] = buffer[14];
+            time[18] = buffer[15];
             std::string command = "date -s \"";
             command += time;
             command += "\"";
             
-            std::cout << command << std::endl;
-            //system(command.c_str());
+            system(command.c_str());
             break;
     }
     
