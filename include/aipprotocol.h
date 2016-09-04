@@ -18,8 +18,6 @@
 #ifndef AIPPROTOCOL_H
 #define AIPPROTOCOL_H
 
-#include <string>
-
 namespace aip {
     static const int PORT = 13337;
     
@@ -73,6 +71,10 @@ namespace aip {
     static const int SYNC = 13;
     
     static const int TIME = 14;
+    
+    static const int ADD_END = 15;
+    
+    static const int DEL_END = 16;
 }
 
 #endif /* AIPPROTOCOL_H */

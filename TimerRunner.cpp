@@ -40,10 +40,6 @@ void TimerRunner::setClisock(int sock) {
     clisock = sock;
 }
 
-void TimerRunner::addEnd() {
-    fEnds++;
-}
-
 void TimerRunner::next() {
     doRun = (sthNewPossible) ? true : false;
 }
@@ -65,8 +61,8 @@ void TimerRunner::idle(Canvas* canvas, displayView display) {
 void TimerRunner::idle(Canvas* canvas) {
     sthNewPossible = false;
     doRun = true;
-    displayView display;
-    idle(canvas, display);
+    displayView d;
+    idle(canvas, d);
 }
 
 void TimerRunner::runtext(Canvas* canvas, char* text) {
@@ -168,6 +164,16 @@ void TimerRunner::showClock(Canvas* canvas) {
     sthNewPossible = true;
 }
 
+void TimerRunner::addEnd() {
+    fEnds++;
+    display->setMaxEnds(fEnds);
+}
+
+void TimerRunner::delEnd() {
+    fEnds--;
+    display->setMaxEnds(fEnds);
+}
+
 void TimerRunner::round(Canvas* canvas, int preparation, int timer, int ends, bool abcd) {
     if(!sthNewPossible)
         return;
@@ -178,31 +184,31 @@ void TimerRunner::round(Canvas* canvas, int preparation, int timer, int ends, bo
     fontTimer.LoadFont("/etc/archery-led-display/fonts/10x20.bdf");
     fEnds = ends;
     
-    displayView display;
-    
-    display.clear(canvas);
-    display.reset();
-    display.setMaxEnds(fEnds);
+    display = new displayView;
+    display->clear(canvas);
+    display->reset();
+    display->setMaxEnds(fEnds);
     
     if(abcd)
-        display.toggleGroup(canvas, fontBig);
+        display->toggleGroup(canvas, fontBig);
     
     for(int end = 0; end < fEnds; end++) {
         sthNewPossible = false;
-        display.colorSign(canvas, Color(255,0,0));
-        display.nextEnd(canvas, fontMisc);
+        display->colorSign(canvas, Color(255,0,0));
+        display->nextEnd(canvas, fontMisc);
         
         for(int group = (abcd) ? 0 : 1; group < 2; group++) {
             doRun = true;
             
             if(abcd && group == 1)
-                display.toggleGroup(canvas, fontBig);
+                display->toggleGroup(canvas, fontBig);
             
             honk(2);
             for(int i = preparation; i > 0; i--) {
                 sendUpdate(i, aip::COLOR_RED, group, end, fEnds);
-                display.colorSign(canvas, Color(255,0,0));
-                display.remainingTime(canvas, fontTimer, i);
+                display->colorSign(canvas, Color(255,0,0));
+                display->updateEnds(canvas, fontMisc);
+                display->remainingTime(canvas, fontTimer, i);
                 
                 std::this_thread::sleep_for(std::chrono::seconds(1));
             }
@@ -221,8 +227,9 @@ void TimerRunner::round(Canvas* canvas, int preparation, int timer, int ends, bo
                 }
                 sendUpdate(i, cUpdate, group, end, fEnds);
                 
-                display.colorSign(canvas, c);
-                display.remainingTime(canvas, fontTimer, i);
+                display->colorSign(canvas, c);
+                display->updateEnds(canvas, fontMisc);
+                display->remainingTime(canvas, fontTimer, i);
                 
                 std::this_thread::sleep_for(std::chrono::seconds(1));
             }
@@ -230,13 +237,13 @@ void TimerRunner::round(Canvas* canvas, int preparation, int timer, int ends, bo
         }
         
         honk(3);
-        display.remainingTime(canvas, fontTimer, 0);
+        display->remainingTime(canvas, fontTimer, 0);
         doRun = true;
         
-        idle(canvas, display);
+        idle(canvas, *display);
         if(end + 1 == fEnds) {
             sthNewPossible = true;
-            display.clear(canvas);
+            display->clear(canvas);
         }
     }
 }

@@ -32,11 +32,12 @@ public:
     TimerRunner();
     virtual ~TimerRunner();
     
-    void addEnd();
     void next();
     void idle(Canvas*);
     void idle(Canvas*,displayView);
     void round(Canvas*,int preparation,int timer,int ends,bool groups);
+    void addEnd();
+    void delEnd();
     void setClisock(int);
     void runtext(Canvas*,char* text);
     void timer(Canvas*, int hours, int minutes, int seconds);
@@ -47,6 +48,7 @@ private:
     bool init = true;
     bool sthNewPossible = true;
     bool roundInProgress = false;
+    displayView *display;
     void honk(int);
     void sendUpdate(int timer, int color, int group, int end, int max_ends);
 };

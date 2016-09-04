@@ -130,6 +130,16 @@ void InetServer::callDisplayThread(char* buffer) {
             timer->round(canvas, preparation, duration, ends, groups);
             break;
             
+        case aip::ADD_END:
+            std::cout << "Adding one end" << std::endl;
+            timer->addEnd();
+            break;
+            
+        case aip::DEL_END:
+            std::cout << "Removing one end" << std::endl;
+            timer->delEnd();
+            break;
+            
         case aip::RUNTEXT:
             for(int i = 0; i < int(buffer[0]-3); i++) {
                 text[i] = buffer[i+2];
