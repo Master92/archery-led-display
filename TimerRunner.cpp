@@ -18,6 +18,7 @@
 #include "TimerRunner.h"
 #include "displayView.h"
 #include "include/aipprotocol.h"
+#include "InetServer.h"
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <thread>
@@ -271,5 +272,5 @@ void TimerRunner::sendUpdate(int timer, int color, int group, int end, int max_e
     buffer[5] = end;
     buffer[6] = max_ends;
     
-    send(clisock, buffer, strlen(buffer), MSG_CONFIRM);
+    send(clisock, buffer, 7, MSG_CONFIRM);
 }
