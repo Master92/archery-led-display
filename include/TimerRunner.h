@@ -51,6 +51,7 @@ private:
     displayView *display;
     void honk(int);
     void sendUpdate(int timer, int color, int group, int end, int max_ends);
+    void sendUpdate(int hours, int minutes, int seconds);
 };
 
 #endif /* TIMERRUNNER_H */

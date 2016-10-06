@@ -33,6 +33,17 @@ namespace aip {
      */
     static const int UPDATE = 2;
     
+    /**
+     * 0: TIMER_UPDATE\n
+     * 1: hours or 127 if hours = 0\n
+     * 2: minutes or 127 if minutes = 0\n
+     * 3: seconds or 127 if seconds = 0\n
+     * 4: 127\n
+     * 5: 127\n
+     * 6: 127
+     */
+    static const int TIMER_UPDATE = 3;
+    
     __attribute_deprecated__
     static const int SHOOT_IN = 20;
     __attribute_deprecated__

@@ -112,6 +112,7 @@ void TimerRunner::timer(Canvas* canvas, int hours, int minutes, int seconds) {
         
         display.clearTextClockTimer(canvas);
         display.printText(canvas, font, posX, posY, Color(255, 255, 255), text);
+        sendUpdate(hours, minutes, seconds);
         std::this_thread::sleep_for(std::chrono::seconds(1));
         
         if(seconds == 0) {
@@ -278,6 +279,19 @@ void TimerRunner::sendUpdate(int timer, int color, int group, int end, int max_e
     buffer[4] = group;
     buffer[5] = end;
     buffer[6] = max_ends;
+    
+    send(clisock, buffer, 7, MSG_CONFIRM);
+}
+
+void TimerRunner::sendUpdate(int hours, int minutes, int seconds) {
+    char buffer[7];
+    buffer[0] = aip::TIMER_UPDATE;
+    buffer[1] = (hours > 0) ? hours : 127;
+    buffer[2] = (minutes > 0) ? minutes : 127;
+    buffer[3] = (seconds > 0) ? seconds : 127;
+    buffer[4] = 127;
+    buffer[5] = 127;
+    buffer[6] = 127;
     
     send(clisock, buffer, 7, MSG_CONFIRM);
 }
